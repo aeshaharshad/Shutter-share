@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Homepage</title>
+  <title>ShutterShare - Home</title>
   <link rel="stylesheet" href="styles/styles.css">
   <link rel="stylesheet" href="styles/responsive.css">
   <link rel="stylesheet" href="styles/animations.css">
@@ -13,14 +13,15 @@
 <body>
   <header>
     <nav>
-      <div class="logo">
-        <a href="index.html">Shutter Share</a>
+      <div class="container">
+        <a href="home.html">
+            <img src="assets/logo.png" alt="ShutterShare Logo">
+        </a>
       </div>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="albums.html">Albums</a></li>
         <li><a href="shared-albums.html">Shared Albums</a></li>
-        <li><a href="friends.html">Friends</a></li>
         <li><a href="account.html">Account</a></li>
         <li><a href="settings.html">Settings</a></li>
       </ul>
@@ -29,12 +30,13 @@
         <button><i class="fas fa-search"></i></button>
       </div>
       <div class="user-profile">
-        <div class="profile-logo" id="profile-logo">
-          <img src="assets/profilephoto.webp" alt="Profile Logo">
+        <div class="user-info">
+          <span id="user-name">Loading...</span>
+          <br>
+          <span id="user-email">Loading...</span>
         </div>
-        <div class="dropdown-menu" id="dropdown-menu">
-          <button id="logout-btn">Logout</button>
-        </div>
+ 
+      </div>
       <div class="hamburger">
         <span class="bar"></span>
         <span class="bar"></span>
@@ -53,14 +55,17 @@
     <div id="no-more-content" class="no-more-content" style="display: none;">
       No more photos to load.
     </div>
+        <button id="upload-btn" class="upload-button" title="Upload Photos">
+      📷
+  </button>
   </main>
-
-  <footer>
-    <p>&copy; 2023 PhotoCloud. All rights reserved.</p>
+  <div id="user-status" style="text-align:center; margin-top: 10px;"></div>
+    <footer>
+    <p>&copy; 2025 PhotoCloud. All rights reserved.</p>
   </footer>
 
-  <script src="scripts/auth.js"></script>
-  <script src="scripts/infinite-scroll.js"></script>
-  <script src="scripts/main.js"></script>
+  <script type="module" src="scripts/auth.js"></script>
+  <script type="module" src="scripts/app.js"></script>
+  <script type="module" src="scripts/upload.js"></script>
 </body>
 </html>

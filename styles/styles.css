@@ -1,6 +1,6 @@
-/* General Styles */
+ /* General Styles */
 
-html, body {
+ html, body {
   height: 100%;
   margin: 0;
   display: flex;
@@ -16,7 +16,7 @@ body {
 }
 
 /* Navbar Styles */
-header {
+header nav{
   background-color: #ffffff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: sticky;
@@ -93,44 +93,67 @@ nav {
 }
 
 /* Photo Grid */
-.photo-grid {
+/* General Styles */
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+/* Photo Grid */
+#photo-grid,#albums-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 25px;
   padding: 30px;
-  margin: 0 auto;
   max-width: 1200px;
+  margin: 0 auto;
 }
 
 .photo-item {
+  display: flex;
+  flex-direction: column;
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  flex-direction: column;
+  padding: 15px;
+  max-width: 250px;
+}
+
+.photo-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .photo-item img {
-  width: 100%;
+  width: 200px;
   height: 200px;
   object-fit: cover;
-  display: block;
+  border-radius: 8px;
 }
 
+/* Photo Actions */
 .photo-actions {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
-  padding: 10px;
-  background-color: #f8f9fa;
-  margin-top: auto;
+  padding: 10px 5px;
+  gap: 5px;
 }
 
 .photo-actions button {
   background-color: #007bff;
-  color: #fff;
+  color: white;
   border: none;
   padding: 8px 15px;
   border-radius: 5px;
@@ -140,6 +163,19 @@ nav {
 
 .photo-actions button:hover {
   background-color: #0056b3;
+}
+
+.photo-thumbnail {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.photo-thumbnail:hover {
+  transform: scale(1.05);
 }
 
 .content {
@@ -199,4 +235,236 @@ footer {
 /* Show dropdown menu when profile logo is clicked */
 .user-profile.active .dropdown-menu {
   display: block;
+}
+
+.upload-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background-color: #007bff;
+  color: white;
+  font-size: 30px;
+  text-align: center;
+  border-radius: 50%;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
+
+.upload-button:hover {
+  transform: scale(1.1);
+  background-color: #0056b3;
+}
+
+.upload-button:focus {
+  outline: none;
+}
+
+.upload-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 300px;
+}
+
+.upload-modal h3 {
+  margin-bottom: 10px;
+}
+
+.upload-modal input {
+  display: block;
+  width: 90%;
+  padding: 8px;
+  margin: 8px auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.upload-modal button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.upload-modal button:hover {
+  background: #0056b3;
+}
+
+.preview-image {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+
+
+
+/* ========== Albums Grid ========== */
+.albums-grid {
+  padding: 20px;
+}
+
+#albums-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.album-card {
+  width: 200px;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  text-align: center;
+}
+
+.album-card:hover {
+  transform: scale(1.05);
+}
+
+.album-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+
+button {
+  cursor: pointer;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+/* Login & Signup Form */
+.auth-form {
+  max-width: 400px;
+  margin: auto;
+  padding: 40px;
+  background: #fff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  text-align: center;
+  margin-top: 5%;
+}
+
+.auth-form h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.auth-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.auth-form button:hover {
+  background-color: #0056b3;
+}
+
+.auth-form p {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.auth-form a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.auth-form a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .auth-form {
+    width: 90%;
+  }
+}
+
+.container img {
+  max-width: 150px; /* Adjust as needed */
+  height: auto;
+  display: block;
+}
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+
+/* Delete Button Style */
+.delete-btn {
+  background-color: #dc3545 !important;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: block; /* or inline-block */
+  visibility: visible;
+  transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+  background-color: #c82333 !important;
+}
+
+/* Confirmation Dialog Styling */
+.confirmation-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0);
 }

@@ -12,9 +12,12 @@
 </head>
 <body>
   <header>
-    <div class="logo">
-      <a href="index.html">PhotoCloud</a>
-    </div>
+   
+    <div class="container">
+      <a href="home.html">
+          <img src="/assets/logo.png" alt="ShutterShare Logo">
+      </a>
+      </div>
   </header>
 
   <main>
@@ -25,10 +28,20 @@
         <input type="password" placeholder="Password" required>
         <button type="submit" class="button-hover">Login</button>
       </form>
+
+      <button id="google-signin" class="button-hover">
+        <i class="fab fa-google"></i> Sign in with Google
+      </button>
+      
+      <button id="email-link-signin" class="button-hover">
+        <i class="fas fa-envelope"></i> Sign in with Email Link
+      </button>
+
       <p>Don't have an account? <a href="signup.html">Sign up</a></p>
     </section>
   </main>
 
-  <script src="scripts/auth.js"></script>
+  <script src="scripts/auth.js" type="module"></script>
+  <script src="scripts/firebase-config.js" type="module"></script>
 </body>
 </html>

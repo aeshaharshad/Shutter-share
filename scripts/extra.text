@@ -159,7 +159,6 @@ document.addEventListener("DOMContentLoaded", function () {
             let imagesFound = false;
             querySnapshot.forEach((doc) => {
                 const data = doc.data();
-                console.log("this data"+data);
 
                 // Only show images for the current user AND only uncategorized images on home page
                 if (data.userId === user.uid && data.album === "Uncategorized") {
@@ -168,7 +167,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     const photoItem = document.createElement("div");
                     photoItem.classList.add("photo-item");
                     photoItem.setAttribute("data-photo-id", doc.id);
-                    photoItem.style.position = 'relative'; // Add position relative
 
                     // Format the timestamp if it exists
                     let timeDisplay = "Just now";
@@ -187,22 +185,20 @@ document.addEventListener("DOMContentLoaded", function () {
                             <button class="like-btn">Like</button>
                             <button class="comment-btn">Comment</button>
                             <button class="share-btn">Share</button>
-                            <button class="delete-btn" data-id="${doc.id}" style="background-color: #dc3545; color: white; padding: 8px 15px; border-radius: 5px; border: none; cursor: pointer; display: inline-block; margin-top: 5px;">Delete</button>
+                            <button class="delete-btn" data-id="${doc.id}">Delete</button>
                         </div>
                     `;
 
                     photoGrid.appendChild(photoItem);
-                    
+                    <button class="delete-btn" data-id="${doc.id}">Delete</button>
                     // Add delete event listener
                     const deleteBtn = photoItem.querySelector(".delete-btn");
                     console.log("Delete button found:", deleteBtn);
-                    if (deleteBtn) {
-                        deleteBtn.addEventListener("click", function(e) {
-                            e.stopPropagation();
-                            const photoId = this.getAttribute("data-id");
-                            deletePhoto(photoId, photoItem);
-                        });
-                    }
+                    deleteBtn.addEventListener("click", function(e) {
+                        e.stopPropagation();
+                        const photoId = this.getAttribute("data-id");
+                        deletePhoto(photoId, photoItem);
+                    });
                 }
             });
 
@@ -211,10 +207,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             console.log("✅ Images loaded successfully!");
-            
-            // Run our custom function to add floating delete buttons
-            setTimeout(addFloatingDeleteButtons, 500);
-            
         } catch (error) {
             console.error("❌ Error loading images:", error);
             photoGrid.innerHTML = "<p class='error'>Error loading photos: " + error.message + "</p>";
@@ -265,7 +257,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     const photoItem = document.createElement("div");
                     photoItem.classList.add("photo-item");
                     photoItem.setAttribute("data-photo-id", doc.id);
-                    photoItem.style.position = 'relative'; // Add position relative
 
                     // Format the timestamp if it exists
                     let timeDisplay = "Just now";
@@ -283,7 +274,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             <button class="like-btn">Like</button>
                             <button class="comment-btn">Comment</button>
                             <button class="share-btn">Share</button>
-                            <button class="delete-btn" data-id="${doc.id}" style="background-color: #dc3545; color: white; padding: 8px 15px; border-radius: 5px; border: none; cursor: pointer; display: inline-block; margin-top: 5px;">Delete</button>
+                            <button class="delete-btn" data-id="${doc.id}">Delete</button>
                         </div>
                     `;
 
@@ -291,13 +282,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     
                     // Add delete event listener
                     const deleteBtn = photoItem.querySelector(".delete-btn");
-                    if (deleteBtn) {
-                        deleteBtn.addEventListener("click", function(e) {
-                            e.stopPropagation();
-                            const photoId = this.getAttribute("data-id");
-                            deletePhoto(photoId, photoItem);
-                        });
-                    }
+                    deleteBtn.addEventListener("click", function(e) {
+                        e.stopPropagation();
+                        const photoId = this.getAttribute("data-id");
+                        deletePhoto(photoId, photoItem);
+                    });
                 }
             });
 
@@ -306,10 +295,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             console.log("✅ Album photos loaded successfully!");
-            
-            // Run our custom function to add floating delete buttons
-            setTimeout(addFloatingDeleteButtons, 500);
-            
         } catch (error) {
             console.error("❌ Error loading album photos:", error);
             photoGrid.innerHTML = "<p class='error'>Error loading photos: " + error.message + "</p>";
@@ -425,112 +410,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // // NEW CODE: Function to add floating delete buttons to all photos
-    // function addFloatingDeleteButtons() {
-    //     console.log("Checking for photos without delete buttons...");
-        
-    //     // Get all photo items
-    //     const photoItems = document.querySelectorAll('.photo-item');
-    //     console.log(`Found ${photoItems.length} photo items`);
-        
-    //     if (photoItems.length === 0) {
-    //         return; // No photos to process
-    //     }
-        
-    //     // Process each photo item
-    //     photoItems.forEach((photoItem) => {
-    //         const photoId = photoItem.getAttribute('data-photo-id');
-            
-    //         // Check if this photo already has our custom delete button
-    //         if (!photoItem.querySelector('.custom-delete-btn')) {
-    //             console.log(`Adding custom delete button to photo ${photoId}`);
-                
-    //             // Make sure photo item has position relative
-    //             photoItem.style.position = 'relative';
-                
-    //             // Create a new delete button
-    //             const deleteBtn = document.createElement('button');
-    //             deleteBtn.className = 'custom-delete-btn';
-    //             deleteBtn.setAttribute('data-id', photoId);
-    //             deleteBtn.textContent = '×';
-                
-    //             // Apply styles directly to the button
-    //             deleteBtn.style.position = 'absolute';
-    //             deleteBtn.style.top = '10px';
-    //             deleteBtn.style.right = '10px';
-    //             deleteBtn.style.backgroundColor = '#dc3545';
-    //             deleteBtn.style.color = 'white';
-    //             deleteBtn.style.border = 'none';
-    //             deleteBtn.style.borderRadius = '50%';
-    //             deleteBtn.style.width = '30px';
-    //             deleteBtn.style.height = '30px';
-    //             deleteBtn.style.fontSize = '20px';
-    //             deleteBtn.style.fontWeight = 'bold';
-    //             deleteBtn.style.cursor = 'pointer';
-    //             deleteBtn.style.zIndex = '999';
-    //             deleteBtn.style.display = 'flex';
-    //             deleteBtn.style.alignItems = 'center';
-    //             deleteBtn.style.justifyContent = 'center';
-                
-    //             // Add event listener
-    //             deleteBtn.addEventListener('click', function(e) {
-    //                 e.stopPropagation();
-    //                 const photoId = this.getAttribute("data-id");
-    //                  console.log("Deleting photo with ID:", photoId);
-    //                 console.log(`Custom delete button clicked for photo ${photoId}`);
-                    
-    //                 if (confirm('Are you sure you want to delete this photo?')) {
-    //                     console.log(`Confirmed delete for photo ${photoId}`);
-    //                     // Call the delete function
-    //                     deletePhotoById(photoId, photoItem);
-    //                 }
-    //             });
-                
-    //             // Add button to photo item
-    //             photoItem.appendChild(deleteBtn);
-    //         }
-    //     });
-    // }
-
-    // // NEW CODE: Define a standalone delete function that doesn't rely on existing code
-    // async function deletePhotoById(photoId, photoElement) {
-    //     console.log(`Deleting photo with ID: ${photoId}`);
-        
-    //     try {
-    //         // Delete from Firestore
-    //         await deleteDoc(doc(db, "photos", photoId));
-            
-    //         // Remove element from DOM
-    //         if (photoElement) {
-    //             photoElement.remove();
-    //         }
-            
-    //         console.log("Photo deleted successfully!");
-            
-    //         // Check if we're on the albums page and need to refresh album display
-    //         if (window.location.pathname.includes("albums.html") && typeof displayAlbums === 'function') {
-    //             displayAlbums();
-    //         }
-            
-    //     } catch (error) {
-    //         console.error("Error deleting photo:", error);
-    //         alert("Failed to delete photo: " + error.message);
-    //     }
-    // }
-
-    // NEW CODE: Run the function on page load and then periodically
-    // Run once after a delay to ensure photos are loaded
-    // setTimeout(addFloatingDeleteButtons, 1000);
-    
-    // // Then run every 3 seconds to catch any new photos
-    // setInterval(addFloatingDeleteButtons, 3000);
-
-    // // NEW CODE: Also run when photos might have been added
-    // document.addEventListener('click', function(e) {
-    //     // Run after any click that might load new photos
-    //     setTimeout(addFloatingDeleteButtons, 500);
-    // });
-
-    // // Initialize page-specific functionality
-    // const currentPath = window.location.pathname;
+    // Initialize page-specific functionality
+    const currentPath = window.location.pathname;
 });

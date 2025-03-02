@@ -3,48 +3,303 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Account</title>
+  <title>Account | ShutterShare</title>
   <link rel="stylesheet" href="styles/styles.css">
   <link rel="stylesheet" href="styles/responsive.css">
   <link rel="stylesheet" href="styles/animations.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    .profile-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+    }
+    
+    .profile-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+    
+   
+
+    
+    .profile-info {
+      flex-grow: 1;
+    }
+    
+    .profile-info h1 {
+      margin: 0 0 5px 0;
+      font-size: 28px;
+      color: #333;
+    }
+    
+    .profile-email {
+      color: #666;
+      margin: 0 0 10px 0;
+      font-size: 16px;
+    }
+    
+    .profile-stats {
+      display: flex;
+      margin-top: 15px;
+    }
+    
+    .stat-item {
+      margin-right: 25px;
+      text-align: center;
+    }
+    
+    .stat-number {
+      font-size: 18px;
+      font-weight: 600;
+      color: #3498db;
+    }
+    
+    .stat-label {
+      font-size: 14px;
+      color: #666;
+    }
+    
+    .profile-details {
+      margin-top: 30px;
+    }
+    
+    .detail-section {
+      margin-bottom: 25px;
+    }
+    
+    .detail-section h3 {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .detail-section h3 i {
+      margin-right: 10px;
+      color: #3498db;
+    }
+    
+    .detail-row {
+      display: flex;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .detail-label {
+      width: 150px;
+      color: #666;
+      font-weight: 500;
+    }
+    
+    .detail-value {
+      flex-grow: 1;
+      color: #333;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+    
+    .btn:hover {
+      background-color: #2980b9;
+    }
+    
+    .btn-outline {
+      background-color: transparent;
+      border: 1px solid #3498db;
+      color: #3498db;
+    }
+    
+    .btn-outline:hover {
+      background-color: #f0f7fd;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    .profile-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 30px;
+    }
+    
+    .profile-actions button {
+      margin-left: 10px;
+    }
+    
+    .edit-field-container {
+      display: flex;
+      align-items: center;
+    }
+    
+    .edit-field-container input {
+      margin-right: 10px;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    
+    .edit-icon {
+      color: #3498db;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+    
+    .file-input {
+      display: none;
+    }
+    
+    /* Animation for profile update */
+    @keyframes highlight {
+      0% { background-color: rgba(52, 152, 219, 0.1); }
+      100% { background-color: transparent; }
+    }
+    
+    .highlight {
+      animation: highlight 2s ease-out;
+    }
+  </style>
 </head>
 <body>
   <header>
     <nav>
-      <div class="logo">
-        <a href="index.html">PhotoCloud</a>
-      </div>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="albums.html">Albums</a></li>
-        <li><a href="shared-albums.html">Shared Albums</a></li>
-        <li><a href="friends.html">Friends</a></li>
-        <li><a href="account.html">Account</a></li>
-        <li><a href="settings.html">Settings</a></li>
-      </ul>
-      <div class="hamburger">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
+      <div class="container">
+        <a href="home.html">
+          <img src="/assets/logo.png" alt="ShutterShare Logo">
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="albums.html">Albums</a></li>
+          <li><a href="shared-albums.html">Shared Albums</a></li>
+          <li><a href="account.html" class="active">Account</a></li>
+          <li><a href="settings.html">Settings</a></li>
+        </ul>
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
       </div>
     </nav>
   </header>
 
   <main>
-    <section class="account-details fade-in">
-      <h2>Account Details</h2>
-      <p>Name: John Doe</p>
-      <p>Email: john.doe@example.com</p>
-      <button class="button-hover">Edit Profile</button>
-    </section>
+    <div class="profile-container">
+      <div class="profile-header">
+        <!-- <div class="profile-picture-container">
+          <img id="profile-picture" src="/assets/default-profile.png" alt="Profile Picture" class="profile-picture">
+          <div class="profile-picture-edit" id="profile-picture-edit">
+            <i class="fas fa-camera"></i>
+          </div>
+          <input type="file" id="profile-picture-input" accept="image/*" class="file-input">
+        </div> -->
+        
+        <div class="profile-info">
+          <h1 id="user-name">Loading...</h1>
+          <p class="profile-email" id="user-email">Loading...</p>
+          
+          <div class="profile-stats">
+            <div class="stat-item">
+              <div class="stat-number" id="photos-count">0</div>
+              <div class="stat-label">Photos</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="albums-count">0</div>
+              <div class="stat-label">Albums</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="shared-count">0</div>
+              <div class="stat-label">Shared</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="profile-details">
+        <div class="detail-section">
+          <h3><i class="fas fa-user"></i> Account Information</h3>
+          
+          <div class="detail-row">
+            <div class="detail-label">Display Name</div>
+            <div class="detail-value">
+              <span id="display-name">Loading...</span>
+              <i class="fas fa-edit edit-icon" id="edit-name-btn"></i>
+              <div class="edit-field-container hidden" id="edit-name-container">
+                <input type="text" id="edit-name-input">
+                <button class="btn" id="save-name-btn">Save</button>
+                <button class="btn btn-outline" id="cancel-name-btn">Cancel</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="detail-row">
+            <div class="detail-label">Email</div>
+            <div class="detail-value" id="user-email-detail">Loading...</div>
+          </div>
+          
+          <div class="detail-row">
+            <div class="detail-label">Account Type</div>
+            <div class="detail-value" id="account-type">Standard</div>
+          </div>
+          
+          <div class="detail-row">
+            <div class="detail-label">Joined</div>
+            <div class="detail-value" id="join-date">Loading...</div>
+          </div>
+        </div>
+        
+        <div class="detail-section">
+          <h3><i class="fas fa-shield-alt"></i> Privacy & Security</h3>
+          
+          <div class="detail-row">
+            <div class="detail-label">Password</div>
+            <div class="detail-value">
+              <span>••••••••</span>
+              <i class="fas fa-edit edit-icon" id="change-password-btn"></i>
+            </div>
+          </div>
+          
+          <div class="detail-row">
+            <div class="detail-label">Profile Visibility</div>
+            <div class="detail-value">
+              <select id="privacy-setting">
+                <option value="public">Public</option>
+                <option value="friends">Friends Only</option>
+                <option value="private">Private</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        
+        <div class="profile-actions">
+          <button class="btn btn-outline" id="logout-btn">Log Out</button>
+        </div>
+      </div>
+    </div>
   </main>
 
   <footer>
-    <p>&copy; 2023 PhotoCloud. All rights reserved.</p>
+    <p>&copy; 2023 ShutterShare. All rights reserved.</p>
   </footer>
 
-  <script src="scripts/main.js"></script>
+  <script type="module" src="/scripts/account.js"></script>
 </body>
 </html>

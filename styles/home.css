@@ -1,0 +1,193 @@
+/* Reset & Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    padding-top: 130px; /* Same as header height */
+}
+
+html, body {
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    color: #fff;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+/* Header (Sticky with Glass Effect) */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 10px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Prevents blur from affecting outside elements */
+    
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Ensures logo on left, buttons on right */
+    padding: 10px 30px;
+    width: 100%;
+}
+
+.search-container {
+    flex-grow: 1; /* Takes available space between logo & buttons */
+    display: flex;
+    justify-content: center; /* Centers search bar */
+}
+.container img {
+    width: 200px;
+}
+
+input[type="text"] {
+    width: 400px;
+    padding: 8px 15px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-left: auto; /* Pushes buttons to the right */
+}
+
+.login-btn, .signup-btn {
+    height: 35px;
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    border: none;
+    transform: scale(1.05);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.login-btn {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.signup-btn {
+    background: white;
+    color: black;
+    border: none;
+}
+
+.login-btn:hover {
+    background: white;
+    color: black;
+}
+
+.signup-btn:hover {
+    background: #949090;
+}
+
+
+/* Hero Section */
+.content {
+    text-align: center;
+    max-width: 700px;
+    margin: 150px auto;
+}
+
+.content h1 {
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+.content p {
+    font-size: 1.2rem;
+    margin: 10px 0;
+}
+
+.content-btn {
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    background: white;
+    color: black;
+    transition: 0.3s ease;
+}
+
+.content-btn:hover {
+    background: #949090;
+}
+
+
+
+/* Image Gallery */
+.extra-content {
+    text-align: center;
+    padding: 50px;
+}
+
+.extra-content h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.image-gallery {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.image-gallery img {
+    width: 250px;
+    height: auto;
+    border-radius: 15px;
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.image-gallery img:hover {
+    transform: scale(1.1);
+    opacity: 0.8;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    font-size: 1rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
