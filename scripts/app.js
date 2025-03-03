@@ -100,6 +100,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         <button class="button-hover">Like</button>
                         <button class="button-hover">Comment</button>
                         <button class="button-hover">Share</button>
+                        <button class="button-hover">Delete</button>
                     </div>
                 `;
                 photoGrid.appendChild(photoItem);
@@ -150,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
-                    
+                    console.log(data)
                     // Only include this user's photos and skip Uncategorized
                     if (data.userId === user.uid && data.album !== "Uncategorized") {
                         if (!albumsMap.has(data.album)) {
@@ -218,6 +219,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                         <button class="like-btn">Like</button>
                                         <button class="comment-btn">Comment</button>
                                         <button class="share-btn">Share</button>
+                                        <button class="delete-btn">Delete</button>
                                     </div>
                                 `;
                                 
@@ -247,23 +249,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // ✅ Toggle Dropdown Menu
-    const profileLogo = document.getElementById("profile-logo");
-    const dropdownMenu = document.getElementById("dropdown-menu");
-
-    if (profileLogo && dropdownMenu) {
-        profileLogo.addEventListener("click", (event) => {
-            event.stopPropagation(); // Prevent immediate close
-            dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
-        });
-
-        // ✅ Close Dropdown when clicking outside
-        document.addEventListener("click", (e) => {
-            if (!profileLogo.contains(e.target) && !dropdownMenu.contains(e.target)) {
-                dropdownMenu.style.display = "none";
-            }
-        });
-    }
+    
 
     // Search functionality for albums
     const searchAlbums = document.getElementById("search-albums");

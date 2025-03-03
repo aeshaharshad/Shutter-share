@@ -5,9 +5,9 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log("📢 Page Loaded: Account.js initialized");
     
     // References to DOM elements
-    const profilePicture = document.getElementById("profile-picture");
-    const profilePictureEdit = document.getElementById("profile-picture-edit");
-    const profilePictureInput = document.getElementById("profile-picture-input");
+    // const profilePicture = document.getElementById("profile-picture");
+    // const profilePictureEdit = document.getElementById("profile-picture-edit");
+    // const profilePictureInput = document.getElementById("profile-picture-input");
     const userNameElement = document.getElementById("user-name");
     const userEmailElement = document.getElementById("user-email");
     const userEmailDetailElement = document.getElementById("user-email-detail");
@@ -26,14 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const sharedCountElement = document.getElementById("shared-count");
     const privacySettingSelect = document.getElementById("privacy-setting");
 
-    // Set default profile image - fixing the 404 error
-    if (profilePicture) {
-        profilePicture.onerror = function() {
-            // Fallback to inline SVG if image doesn't load
-            this.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23cccccc'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/%3E%3C/svg%3E";
-        };
-    }
-
+  
     let currentUser = null;
     let userProfileData = {};
 
@@ -63,10 +56,7 @@ document.addEventListener("DOMContentLoaded", function() {
             userEmailDetailElement.innerText = user.email;
             displayNameElement.innerText = user.displayName || "User";
             
-            // Set profile picture if available
-            if (user.photoURL) {
-                profilePicture.src = user.photoURL;
-            }
+          
             
             // Try to get additional user data from Firestore
             const userDocRef = doc(db, "users", user.uid);
@@ -159,56 +149,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
     
-    // ✅ Profile picture edit functionality
-    if (profilePictureEdit) {
-        profilePictureEdit.addEventListener("click", () => {
-            profilePictureInput.click();
-        });
-    }
-    
-    if (profilePictureInput) {
-        profilePictureInput.addEventListener("change", async (event) => {
-            const file = event.target.files[0];
-            if (!file) return;
-            
-            try {
-                // Read file as data URL
-                const reader = new FileReader();
-                reader.onload = async (e) => {
-                    const imageUrl = e.target.result;
-                    
-                    // Update profile picture UI
-                    profilePicture.src = imageUrl;
-                    
-                    // Update Firebase Auth profile
-                    await updateProfile(currentUser, {
-                        photoURL: imageUrl
-                    });
-                    
-                    try {
-                        // Update Firestore user document
-                        const userDocRef = doc(db, "users", currentUser.uid);
-                        await updateDoc(userDocRef, {
-                            photoURL: imageUrl,
-                            updatedAt: serverTimestamp()
-                        });
-                        
-                        console.log("✅ Profile picture updated successfully");
-                    } catch (firestoreError) {
-                        console.error("Error updating Firestore profile:", firestoreError);
-                        // If document doesn't exist, create it
-                        if (firestoreError.code === 'not-found') {
-                            await createUserProfile(currentUser);
-                        }
-                    }
-                };
-                reader.readAsDataURL(file);
-            } catch (error) {
-                console.error("❌ Error updating profile picture:", error);
-                alert("Failed to update profile picture: " + error.message);
-            }
-        });
-    }
+
     
     // ✅ Display name edit functionality
     if (editNameBtn) {
