@@ -44,6 +44,7 @@ function showUploadForm(file) {
         <div class="modal-content">
             <h3>Upload Photo</h3>
             <img id="preview-image" class="preview-image">
+            <input type="text" id="photo-name" placeholder="Enter Photo Name (Required)" required>
             <input type="text" id="album-name" placeholder="Enter Album Name (Optional)">
             <div class="modal-buttons">
                 <button id="confirm-upload">Upload</button>
@@ -57,8 +58,15 @@ function showUploadForm(file) {
 
     document.getElementById("cancel-upload").addEventListener("click", () => modal.remove());
     document.getElementById("confirm-upload").addEventListener("click", () => {
+        const photoName = document.getElementById("photo-name").value.trim();
         const albumName = document.getElementById("album-name").value.trim();
-        saveImageData(albumName, file);
+        
+        if (!photoName) {
+            alert("Please enter a name for the photo");
+            return;
+        }
+        
+        saveImageData(albumName, file, photoName);
         modal.remove();
     });
 }
@@ -69,7 +77,7 @@ function displayImagePreview(file) {
     reader.readAsDataURL(file);
 }
 
-async function saveImageData(albumName, file) {
+async function saveImageData(albumName, file, photoName) {
     console.log("📤 Uploading image to Firestore...");
 
     onAuthStateChanged(auth, async (user) => {
@@ -82,12 +90,13 @@ async function saveImageData(albumName, file) {
                 const finalAlbum = albumName || "Uncategorized";
                 const docRef = await addDoc(collection(db, "photos"), {
                     imageUrl,
+                    photoName: photoName,
                     album: finalAlbum,
                     timestamp: serverTimestamp(),
                     userId: user.uid,
                     email: user.email,
                 });
-                console.log(`✅ Image saved to album "${finalAlbum}" with ID: ${docRef.id}`);
+                console.log(`✅ Image "${photoName}" saved to album "${finalAlbum}" with ID: ${docRef.id}`);
                 refreshUI(finalAlbum);
             } catch (error) {
                 console.error("❌ Error saving image to Firestore:", error);
@@ -101,65 +110,21 @@ async function saveImageData(albumName, file) {
 function refreshUI(albumName) {
     const currentPath = window.location.pathname;
     if (currentPath.includes("index.html") || currentPath === "/" || currentPath.endsWith("/")) {
-        if (albumName === "Uncategorized") fetchPhotosFromFirestore();
+        if (typeof fetchPhotosFromFirestore === "function") {
+            fetchPhotosFromFirestore();
+        } else {
+            location.reload();
+        }
     } else if (currentPath.includes("albums.html")) {
-        typeof displayAlbums === "function" ? displayAlbums() : location.reload();
+        if (typeof displayAlbums === "function") {
+            displayAlbums();
+        } else {
+            location.reload();
+        }
     }
 }
 
-window.fetchPhotosFromFirestore = async function () {
-    console.log("🔄 Loading images from Firestore...");
-    const photoGrid = document.getElementById("photo-grid");
-    if (!photoGrid) return console.error("❌ Photo grid not found!");
-    
-    photoGrid.innerHTML = "";
-    const user = auth.currentUser;
-    if (!user) return (photoGrid.innerHTML = "<p class='no-auth'>Please sign in to view your photos.</p>");
-    
-    try {
-        const querySnapshot = await getDocs(collection(db, "photos"));
-        if (querySnapshot.empty) return (photoGrid.innerHTML = "<p class='no-photos'>No photos uploaded yet.</p>");
-
-        let imagesFound = false;
-        querySnapshot.forEach((doc) => {
-            const photoData = doc.data();
-            const photoId = doc.id; // Firestore document ID
-            document.getElementById("photos-container").appendChild(createPhotoElement(photoId, photoData));
-    
-            if (data.userId === user.uid && data.album === "Uncategorized") {
-                imagesFound = true;
-                photoGrid.appendChild(createPhotoElement(doc.id, data));
-            }
-        });
-        
-        if (!imagesFound) photoGrid.innerHTML = "<p class='no-photos'>No uncategorized photos found.</p>";
-    } catch (error) {
-        console.error("❌ Error loading images:", error);
-        photoGrid.innerHTML = `<p class='error'>Error loading photos: ${error.message}</p>`;
-    }
-};
-
-function createPhotoElement(photoId, data) {
-    const photoItem = document.createElement("div");
-    photoItem.classList.add("photo-item");
-    photoItem.setAttribute("data-photo-id", photoId);
-    photoItem.innerHTML = `
-        <img src="${data.imageUrl}" alt="Uploaded Photo">
-        <div class="photo-info">
-            <span class="album-name">${data.album}</span>
-            <span class="timestamp">${data.timestamp?.toDate().toLocaleString() || "Just now"}</span>
-        </div>
-        <button class="delete-btn" data-id="${photoId}">Delete</button>
-    `;
-   photoItem.querySelector(".delete-btn").addEventListener("click", () => {
-        console.log("🗑️ Deleting photo with ID:", photoId);
-        deletePhoto(photoId, photoItem);
-    });
-    return photoItem;
-}
-
-
-async function deletePhoto(photoId, photoElement) {
+window.deletePhoto = async function(photoId, photoElement) {
     if (!photoId) {
         console.error("❌ Error: photoId is undefined!");
         alert("Photo ID not found. Unable to delete.");
@@ -176,4 +141,4 @@ async function deletePhoto(photoId, photoElement) {
         console.error("❌ Error deleting photo:", error);
         alert("Failed to delete photo: " + error.message);
     }
-}
+};
